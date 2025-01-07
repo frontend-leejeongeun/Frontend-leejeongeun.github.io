@@ -9,7 +9,7 @@ render_with_liquid: false
 
 바닐라 자바스크립트를 이용해 todo-list를 만들어 보았습니다.
 투두리스트의 동작방식은 [TodoMVC](https://todomvc.com/examples/javascript-es6/dist/)와 같이 동작하도록 개발하였으며, 다음과 같은 형태입니다.
-전체 소스코드는 [TodoVanilla-github-jeongeun](https://github.com/frontend-leejeongeun/todo-vanilla) 여기서 볼 수 있습니다.
+전체 소스코드는 [TodoVanilla-github-jeongeun](https://github.com/frontend-leejeongeun/Todos-Vanilla) 여기서 볼 수 있습니다.
 
   ![Desktop View](../assets/img/todo1.png){: width="700" height="400" }
 
@@ -533,7 +533,7 @@ const paintTodos = () => {
   allTodos.forEach(todo => { 
     (...생략)
     
-    const delBtnEl = document.createElement('buttom');
+    const delBtnEl = document.createElement('button');
     delBtnEl.classList.add('delBtn');
     delBtnEl.addEventListener('click', ()=>{deletTodo(todo.id)}) // 'click'이벤트 발생 시, 해당 할 일 삭제
     delBtnElem.innerHTML = 'X';
@@ -947,4 +947,4 @@ const clearCompletedTodos = () => {
 ```
 {: file='todo.js'}
 
-전체 소스코드는 [TodoVanilla-github-jeongeun](https://github.com/frontend-leejeongeun/todo-vanilla) 여기서 볼 수 있습니다.
+전체 소스코드는 [TodoVanilla-github-jeongeun](https://github.com/frontend-leejeongeun/Todos-Vanilla) 여기서 볼 수 있습니다.
