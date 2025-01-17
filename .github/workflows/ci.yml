@@ -15,7 +15,7 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest # GitHub 호스팅 런너를 사용
+    runs-on: ubuntu-latest
 
     strategy:
       matrix:
@@ -25,28 +25,13 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0
+          fetch-depth: 0 # for posts's lastmod
 
-      - name: Install dependencies
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y libssl-dev libreadline-dev zlib1g-dev
-
-      - name: Install Ruby using ruby-build
-        run: |
-          # ruby-build 설치
-          git clone https://github.com/rbenv/ruby-build.git ~/.ruby-build
-          export PATH="$HOME/.ruby-build/bin:$PATH"
-
-          # ruby-build를 사용하여 Ruby 설치
-          ruby-build ${ { matrix.ruby } } $HOME/.rbenv/versions/${ { matrix.ruby } }
-          export PATH="$HOME/.rbenv/versions/${ { matrix.ruby } }/bin:$PATH"
-
-          # Ruby 버전 확인
-          ruby -v
-
-      - name: Install Bundler
-        run: gem install bundler
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: ${{ matrix.ruby }}
+          bundler-cache: true
 
       - name: Setup Node
         uses: actions/setup-node@v4
