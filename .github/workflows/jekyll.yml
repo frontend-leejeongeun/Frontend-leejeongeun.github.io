@@ -40,8 +40,8 @@ jobs:
       - name: Install Bundler
         run: |
           gem install bundler --user-install  # Bundler를 사용자 권한으로 설치
-          echo "Adding bundler to PATH"
           export PATH="$HOME/.gem/ruby/3.1.0/bin:$PATH"  # Bundler가 설치된 경로를 PATH에 추가
+          echo "Bundler 설치 후 PATH: $PATH"  # Bundler 경로가 잘 추가되었는지 확인
 
       - name: Install dependencies
         run: |
