@@ -40,13 +40,16 @@ jobs:
       - name: Install Bundler
         run: |
           gem install bundler --user-install  # Bundler를 사용자 권한으로 설치
-          export PATH="$HOME/.gem/ruby/3.2.0/bin:$PATH"  # Bundler 경로를 PATH에 추가
+          echo "export PATH=\"$HOME/.gem/ruby/3.2.0/bin:$PATH\"" >> ~/.bashrc  # Bundler 경로를 .bashrc에 추가
+          source ~/.bashrc  # .bashrc 파일을 반영하여 경로 설정
           echo "Bundler 설치 후 PATH: $PATH"  # Bundler 경로가 잘 추가되었는지 확인
           which bundle  # bundle 명령어가 제대로 설치되었는지 확인
 
       - name: Install dependencies
         run: |
+          # 경로가 제대로 설정되었는지 확인
           export PATH="$HOME/.gem/ruby/3.2.0/bin:$PATH"  # Bundler 경로 추가
+          cd $GITHUB_WORKSPACE  # Gemfile이 있는 프로젝트 루트 디렉토리로 이동
           bundle install  # 프로젝트의 의존성 설치
 
       - name: Setup Pages
@@ -54,7 +57,9 @@ jobs:
         uses: actions/configure-pages@v5 # GitHub Pages 설정
 
       - name: Build with Jekyll
-        run: bundle exec jekyll build --baseurl "${{ steps.pages.outputs.base_path }}" # Jekyll로 사이트 빌드
+        run: |
+          cd $GITHUB_WORKSPACE  # 다시 프로젝트 루트 디렉토리로 이동
+          bundle exec jekyll build --baseurl "${{ steps.pages.outputs.base_path }}" # Jekyll로 사이트 빌드
         env:
           JEKYLL_ENV: production # Jekyll 빌드 환경을 production으로 설정
 
