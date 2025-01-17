@@ -39,7 +39,7 @@ jobs:
 
       - name: Install Bundler
         run: |
-          gem install bundler  # Bundler 설치
+          gem install bundler --user-install  # Bundler를 사용자 권한으로 설치
 
       - name: Install dependencies
         run: |
