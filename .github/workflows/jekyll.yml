@@ -46,6 +46,7 @@ jobs:
 
       - name: Install dependencies
         run: |
+          export PATH="$HOME/.gem/ruby/3.2.0/bin:$PATH"  # Bundler 경로 추가 (반복)
           bundle install  # 프로젝트의 의존성 설치
 
       - name: Setup Pages
