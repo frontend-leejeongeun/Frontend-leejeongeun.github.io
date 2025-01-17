@@ -7,58 +7,56 @@
 name: Deploy Jekyll site to Pages
 
 on:
-  # Runs on pushes targeting the default branch
   push:
-    branches: ["main"]
+    branches: ["main"] # main 브랜치에 푸시할 때마다 실행
+  workflow_dispatch: # 수동으로 워크플로우를 실행할 수 있도록 허용
 
-  # Allows you to run this workflow manually from the Actions tab
-  workflow_dispatch:
-
-# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
 permissions:
-  contents: read
-  pages: write
-  id-token: write
+  contents: read # 코드 읽기 권한
+  pages: write # GitHub Pages 배포 권한
+  id-token: write # ID 토큰 권한
 
-# Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
-# However, do NOT cancel in-progress runs as we want to allow these production deployments to complete.
 concurrency:
-  group: "pages"
-  cancel-in-progress: false
+  group: "pages" # 페이지 그룹으로 설정하여 동시 배포를 방지
+  cancel-in-progress: false # 진행 중인 작업을 취소하지 않음 (배포 완료까지 기다림)
 
 jobs:
   # Build job
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-latest # GitHub Actions에서 제공하는 Ubuntu 환경에서 실행
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
-      - name: Setup Ruby
-        uses: ruby/setup-ruby@8575951200e472d5f2d95c625da0c7bec8217c42 # v1.161.0
-        with:
-          ruby-version: '3.1' # Not needed with a .ruby-version file
-          bundler-cache: true # runs 'bundle install' and caches installed gems automatically
-          cache-version: 0 # Increment this number if you need to re-download cached gems
+        uses: actions/checkout@v4 # 코드를 체크아웃하여 워크플로우 내에서 사용
+
+      - name: Set up Ruby using ruby-build
+        run: |
+          sudo apt-get update  # 시스템 패키지 목록 업데이트
+          sudo apt-get install -y git curl  # ruby-build를 클론하기 위한 필수 도구 설치
+          git clone https://github.com/rbenv/ruby-build.git ~/.ruby-build  # ruby-build를 클론
+          export PATH="$HOME/.ruby-build/bin:$PATH"  # ruby-build가 설치된 경로를 PATH에 추가
+          ruby-build 3.1.4 /opt/hostedtoolcache/Ruby/3.1.4/x64  # Ruby 3.1.4 버전 설치
+          touch /opt/hostedtoolcache/Ruby/3.1.4/x64.complete  # 설치 완료 표시 파일 생성
+
       - name: Setup Pages
         id: pages
-        uses: actions/configure-pages@v5
+        uses: actions/configure-pages@v5 # GitHub Pages 설정
+
       - name: Build with Jekyll
-        # Outputs to the './_site' directory by default
-        run: bundle exec jekyll build --baseurl "${{ steps.pages.outputs.base_path }}"
+        run: bundle exec jekyll build --baseurl "${{ steps.pages.outputs.base_path }}" # Jekyll로 사이트 빌드
         env:
-          JEKYLL_ENV: production
+          JEKYLL_ENV: production # Jekyll 빌드 환경을 production으로 설정
+
       - name: Upload artifact
-        # Automatically uploads an artifact from the './_site' directory by default
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-pages-artifact@v3 # 빌드된 결과물을 GitHub Pages에 업로드
 
   # Deployment job
   deploy:
     environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    runs-on: ubuntu-latest
-    needs: build
+      name: github-pages # GitHub Pages 환경으로 배포
+      url: ${{ steps.deployment.outputs.page_url }} # 배포된 페이지 URL
+    runs-on: ubuntu-latest # GitHub Actions에서 제공하는 Ubuntu 환경에서 실행
+    needs: build # build job이 완료된 후 실행
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v4 # GitHub Pages에 배포
