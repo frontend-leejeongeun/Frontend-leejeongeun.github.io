@@ -39,10 +39,10 @@ jobs:
 
       - name: Install Bundler
         run: |
-          export PATH="/opt/hostedtoolcache/Ruby/3.2.0/x64/bin:$PATH"  # Ruby 3.2.0 경로를 PATH에 추가
           gem install bundler --user-install  # Bundler를 사용자 권한으로 설치
-          export PATH="/home/runner/.local/share/gem/ruby/3.2.0/bin:$PATH"  # gem 실행 파일 경로를 PATH에 추가
+          export PATH="$HOME/.gem/ruby/3.2.0/bin:$PATH"  # Bundler 경로를 PATH에 추가
           echo "Bundler 설치 후 PATH: $PATH"  # Bundler 경로가 잘 추가되었는지 확인
+          which bundle  # bundle 명령어가 제대로 설치되었는지 확인
 
       - name: Install dependencies
         run: |
