@@ -16,7 +16,7 @@ concurrency:
 
 jobs:
   build:
-    runs-on: ubuntu-22.04
+    runs-on: windows-latest # 윈도우 환경으로 변경
 
     steps:
       - name: Checkout
@@ -24,29 +24,14 @@ jobs:
 
       - name: Set up Ruby using ruby-build
         run: |
-          sudo apt-get update
-          sudo apt-get install -y git curl libssl-dev libreadline-dev zlib1g-dev
-          git clone https://github.com/rbenv/ruby-build.git ~/.ruby-build
-          export PATH="$HOME/.ruby-build/bin:$PATH"
-          ruby-build 3.1.0 /opt/hostedtoolcache/Ruby/3.1.0/x64  # Ruby 버전을 3.1.0으로 변경
-          touch /opt/hostedtoolcache/Ruby/3.1.0/x64.complete  # Ruby 3.1.0 완료 처리
-          # Ruby 3.1.0 활성화
-          echo "export PATH=/opt/hostedtoolcache/Ruby/3.1.0/x64/bin:$PATH" >> ~/.bashrc
-          source ~/.bashrc
+          choco install ruby --version=3.1.6  # Windows에서 Ruby 3.1.6 설치
           ruby -v  # Ruby 버전 확인
-          gem -v   # gem 버전 확인
-
-      - name: Install Bundler
-        run: |
-          sudo gem install bundler  # Bundler를 시스템 전체에 설치
-          echo "export PATH=\"$HOME/.gem/ruby/3.1.0/bin:$PATH\"" >> ~/.bashrc  # 경로를 Ruby 3.1.0에 맞게 변경
-          source ~/.bashrc
-          which bundle  # Bundler 설치 경로 확인
+          gem install bundler  # Bundler 설치
+          gem -v  # Bundler 버전 확인
 
       - name: Install dependencies
         run: |
-          export PATH="/opt/hostedtoolcache/Ruby/3.1.0/x64/bin:$PATH"  # Ruby 3.1.0 경로 추가
-          cd $GITHUB_WORKSPACE
+          cd ${{ github.workspace }}  # GitHub Workspace로 이동
           bundle install  # 의존성 설치
 
       - name: Setup Pages
@@ -55,7 +40,7 @@ jobs:
 
       - name: Build with Jekyll
         run: |
-          cd $GITHUB_WORKSPACE
+          cd ${{ github.workspace }}  # GitHub Workspace로 이동
           bundle exec jekyll build --destination ./_site --baseurl "${{ steps.pages.outputs.base_path }}"
         env:
           JEKYLL_ENV: production
@@ -67,7 +52,7 @@ jobs:
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
-    runs-on: ubuntu-22.04
+    runs-on: windows-latest # 윈도우 환경으로 변경
     needs: build
     steps:
       - name: Deploy to GitHub Pages
