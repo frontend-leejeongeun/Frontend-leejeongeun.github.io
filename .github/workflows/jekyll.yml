@@ -22,9 +22,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Set up Ruby using ruby-build
+      - name: Set up Ruby 3.1.0
         run: |
-          choco install ruby --version=3.1.6  # Windows에서 Ruby 3.1.6 설치
+          choco install ruby --version=3.1.0  # Windows에서 Ruby 3.1.0 설치
           ruby -v  # Ruby 버전 확인
           gem install bundler  # Bundler 설치
           gem -v  # Bundler 버전 확인
