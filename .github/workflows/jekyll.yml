@@ -22,10 +22,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Set up Ruby 3.1.0
+      - name: Set up Ruby 3.1.6 (Already Installed)
         run: |
-          Invoke-WebRequest -Uri "https://dl.bintray.com/oneclick/rubyinstaller/rubyinstaller-3.1.0-1-x64.exe" -OutFile "rubyinstaller.exe"
-          Start-Process -Wait -FilePath "rubyinstaller.exe" -ArgumentList "/silent"
+          # Ruby 3.1.6이 이미 설치된 상태이므로, 설치 절차를 생략하고 버전 확인만 진행
           ruby -v  # Ruby 버전 확인
           gem install bundler  # Bundler 설치
           gem -v  # Bundler 버전 확인
