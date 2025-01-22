@@ -25,8 +25,12 @@ jobs:
       - name: Install Ruby 3.1.0
         run: |
           # Ruby 3.1.0을 수동으로 설치
-          Invoke-WebRequest -Uri "https://github.com/oneclick/rubyinstaller2/releases/download/RubyInstaller-3.1.0-1/rubyinstaller-3.1.0-1-x64.exe" -OutFile "rubyinstaller-3.1.0-1-x64.exe"
+          Invoke-WebRequest -Uri "https://github.com/oneclick/rubyinstaller2/releases/download/ruby-3.1.0-1/rubyinstaller-3.1.0-1-x64.exe" -OutFile "rubyinstaller-3.1.0-1-x64.exe"
           Start-Process -Wait -FilePath "rubyinstaller-3.1.0-1-x64.exe" -ArgumentList "/silent"
+
+          # 시스템 환경 변수 갱신 (필요 시 경로 추가)
+          $env:Path += ";C:\Ruby31-x64\bin"  # 실제 설치 경로에 맞게 수정 필요
+
           ruby -v  # Ruby 버전 확인
           gem install bundler  # Bundler 설치
           gem -v  # Bundler 버전 확인
