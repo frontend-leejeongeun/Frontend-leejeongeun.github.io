@@ -25,7 +25,7 @@ jobs:
       - name: Install Ruby 3.1.0
         run: |
           # Ruby 3.1.0을 수동으로 설치
-          Invoke-WebRequest -Uri "https://github.com/oneclick/rubyinstaller2/releases/download/RubyInstaller-3.1.0-1/rubyinstaller-3.1.0-1-x64.exe" -OutFile "rubyinstaller.exe"
+          Invoke-WebRequest -Uri "https://github.com/oneclick/rubyinstaller2/releases/download/RubyInstaller-3.1.0-1/rubyinstaller-3.1.0-1-x64.exe" -OutFile "rubyinstaller-3.1.0-1-x64.exe"
           Start-Process -Wait -FilePath "rubyinstaller.exe" -ArgumentList "/silent"
           ruby -v  # Ruby 버전 확인
           gem install bundler  # Bundler 설치
