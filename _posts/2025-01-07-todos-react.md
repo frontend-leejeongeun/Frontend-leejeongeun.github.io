@@ -55,8 +55,7 @@ render_with_liquid: false
    - 완료된 일을 투두리스트에서 삭제한다.
 
 ## HTML과 CSS 적용하기
-먼저 [reset.css](https://meyerweb.com/eric/tools/css/reset/)를 index.css에 적용해 주었습니다.
-reset.css는 브라우저 간의 스타일 불일치를 해소하는 크로스브라우징을 목적으로 사용하는데 이는 기본적으로 설정되어있는 브라우저 스타일 설정이 개발하는데 불편을 주기 때문입니다. reset.css를 통해 이미 설정되어 있는 스타일을 적용하여 리셋 후 개발하였습니다. 
+먼저 [reset.css](https://meyerweb.com/eric/tools/css/reset/)를 index.css에 적용해 주었습니다. reset.css는 브라우저 간의 스타일 불일치를 해소하는 크로스브라우징을 목적으로 사용하는데 이는 기본적으로 설정되어있는 브라우저 스타일 설정이 개발하는데 불편을 주기 때문입니다. reset.css를 통해 이미 설정되어 있는 스타일을 적용하여 리셋 후 개발하였습니다. 
 
 HTML과 CSS는 다음과 같이 적용하였습니다.
 
