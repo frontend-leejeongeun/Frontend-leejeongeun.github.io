@@ -32,7 +32,8 @@ jobs:
           Start-Process -Wait -FilePath "rubyinstaller-3.1.0-1-x64.exe" -ArgumentList "/silent"
 
           # Ruby 3.1 경로를 환경 변수에 추가
-          $env:Path += ";C:\Ruby31-x64\bin"
+          # GitHub Actions에서 사용하는 기본 경로: C:\hostedtoolcache\windows\Ruby\3.1.x\x64\bin
+          $env:Path += ";C:\hostedtoolcache\windows\Ruby\3.1.0\x64\bin"
 
           # 새 세션을 시작하여 경로가 반영되도록 강제
           RefreshEnv.cmd
@@ -40,13 +41,16 @@ jobs:
           # Ruby 버전 확인
           ruby -v  # Ruby 3.1.0이 제대로 설치되었는지 확인
 
+          # 환경 변수 경로 확인
+          echo "Current PATH: $env:Path"  # 환경 변수에 설정된 경로 출력
+
           # Bundler 설치
           gem install bundler
           gem -v  # Bundler 버전 확인
 
       - name: Install dependencies
         run: |
-          # 새로운 PowerShell 세션에서 Ruby 경로가 반영되었는지 확인
+          # Ruby 경로가 반영되었는지 확인
           echo "Verifying Ruby Version..."
           ruby -v  # Ruby 버전 확인
 
