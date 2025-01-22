@@ -31,8 +31,14 @@ jobs:
           # 시스템 환경 변수 갱신 (필요 시 경로 추가)
           $env:Path += ";C:\Ruby31-x64\bin"  # 실제 설치 경로에 맞게 수정 필요
 
+          # 경로 확인 (설치된 Ruby 경로 확인)
+          echo $env:Path
+
+          # Ruby 버전 확인
           ruby -v  # Ruby 버전 확인
-          gem install bundler  # Bundler 설치
+
+          # Bundler 설치
+          gem install bundler
           gem -v  # Bundler 버전 확인
 
       - name: Install dependencies
