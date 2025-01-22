@@ -31,8 +31,8 @@ jobs:
           # 시스템 환경 변수 갱신 (필요 시 경로 추가)
           $env:Path += ";C:\Ruby31-x64\bin"  # 실제 설치 경로에 맞게 수정 필요
 
-          # 환경 변수 갱신을 위해 refreshenv 실행
-          refreshenv
+          # 환경 변수 갱신을 위해 setx 사용 (세션을 새로 시작하여 경로 반영)
+          setx PATH "$env:Path"
 
           # Ruby 버전 확인
           ruby -v  # Ruby 버전 확인
