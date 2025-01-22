@@ -22,18 +22,11 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Install Chocolatey
+      - name: Install Ruby 3.1.0
         run: |
-          # Chocolatey 설치 (choco 명령어를 사용하는 패키지 관리자)
-          Set-ExecutionPolicy Bypass -Scope Process -Force;
-          [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]::Tls12;
-          iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
-          choco -v  # Chocolatey 설치 확인
-
-      - name: Install Ruby 3.1.0 using Chocolatey
-        run: |
-          # Chocolatey로 Ruby 3.1.0 설치
-          choco install ruby --version=3.1.0 -y
+          # Ruby 3.1.0을 수동으로 설치
+          Invoke-WebRequest -Uri "https://github.com/oneclick/rubyinstaller2/releases/download/RubyInstaller-3.1.0-1/rubyinstaller-3.1.0-1-x64.exe" -OutFile "rubyinstaller.exe"
+          Start-Process -Wait -FilePath "rubyinstaller.exe" -ArgumentList "/silent"
           ruby -v  # Ruby 버전 확인
           gem install bundler  # Bundler 설치
           gem -v  # Bundler 버전 확인
