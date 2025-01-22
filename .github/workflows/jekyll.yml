@@ -28,21 +28,21 @@ jobs:
           sudo apt-get install -y git curl libssl-dev libreadline-dev zlib1g-dev
           git clone https://github.com/rbenv/ruby-build.git ~/.ruby-build
           export PATH="$HOME/.ruby-build/bin:$PATH"
-          ruby-build 3.2.0 /opt/hostedtoolcache/Ruby/3.2.0/x64
-          touch /opt/hostedtoolcache/Ruby/3.2.0/x64.complete
+          ruby-build 3.1.0 /opt/hostedtoolcache/Ruby/3.1.0/x64  # Ruby 버전을 3.1.0으로 변경
+          touch /opt/hostedtoolcache/Ruby/3.1.0/x64.complete  # Ruby 3.1.0 완료 처리
 
       - name: Install Bundler
         run: |
           sudo gem install bundler  # Bundler를 시스템 전체에 설치
-          echo "export PATH=\"$HOME/.gem/ruby/3.2.0/bin:$PATH\"" >> ~/.bashrc
+          echo "export PATH=\"$HOME/.gem/ruby/3.1.0/bin:$PATH\"" >> ~/.bashrc  # 경로를 Ruby 3.1.0에 맞게 변경
           source ~/.bashrc
-          which bundle
+          which bundle  # Bundler 설치 경로 확인
 
       - name: Install dependencies
         run: |
-          export PATH="$HOME/.gem/ruby/3.2.0/bin:$PATH"
+          export PATH="$HOME/.gem/ruby/3.1.0/bin:$PATH"  # Bundler 경로 추가
           cd $GITHUB_WORKSPACE
-          bundle install
+          bundle install  # 의존성 설치
 
       - name: Setup Pages
         id: pages
