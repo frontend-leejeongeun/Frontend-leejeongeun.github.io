@@ -30,6 +30,11 @@ jobs:
           export PATH="$HOME/.ruby-build/bin:$PATH"
           ruby-build 3.1.0 /opt/hostedtoolcache/Ruby/3.1.0/x64  # Ruby 버전을 3.1.0으로 변경
           touch /opt/hostedtoolcache/Ruby/3.1.0/x64.complete  # Ruby 3.1.0 완료 처리
+          # Ruby 3.1.0 활성화
+          echo "export PATH=/opt/hostedtoolcache/Ruby/3.1.0/x64/bin:$PATH" >> ~/.bashrc
+          source ~/.bashrc
+          ruby -v  # Ruby 버전 확인
+          gem -v   # gem 버전 확인
 
       - name: Install Bundler
         run: |
@@ -40,7 +45,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          export PATH="$HOME/.gem/ruby/3.1.0/bin:$PATH"  # Bundler 경로 추가
+          export PATH="/opt/hostedtoolcache/Ruby/3.1.0/x64/bin:$PATH"  # Ruby 3.1.0 경로 추가
           cd $GITHUB_WORKSPACE
           bundle install  # 의존성 설치
 
