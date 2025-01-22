@@ -28,13 +28,14 @@ jobs:
           Invoke-WebRequest -Uri "https://github.com/oneclick/rubyinstaller2/releases/download/RubyInstaller-3.1.0-1/rubyinstaller-3.1.0-1-x64.exe" -OutFile "rubyinstaller-3.1.0-1-x64.exe"
           Start-Process -Wait -FilePath "rubyinstaller-3.1.0-1-x64.exe" -ArgumentList "/silent"
 
-          # 시스템 환경 변수 갱신 (필요 시 경로 추가)
-          $env:Path += ";C:\Ruby31-x64\bin"  # 실제 설치 경로에 맞게 수정 필요
+          # Ruby 경로를 환경 변수에 추가
+          $env:Path += ";C:\Ruby31-x64\bin"
 
-          # 환경 변수 갱신을 위해 setx 사용 (세션을 새로 시작하여 경로 반영)
-          setx PATH "$env:Path"
+          # 세션을 새로 시작하여 경로가 반영되도록 강제
+          RefreshEnv.cmd
 
-          # Ruby 버전 확인
+          # Ruby 경로 확인
+          echo "Current Ruby path: $env:Path"
           ruby -v  # Ruby 버전 확인
 
           # Bundler 설치
@@ -43,7 +44,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          # 새로운 세션에서 Ruby 경로가 반영되었는지 확인
+          # 새로운 PowerShell 세션에서 Ruby 경로가 반영되었는지 확인
           echo "Verifying Ruby Version..."
           ruby -v  # Ruby 버전 확인
 
