@@ -16,7 +16,7 @@ concurrency:
 
 jobs:
   build:
-    runs-on: ubuntu-22.04 # Ubuntu 22.04 사용
+    runs-on: ubuntu-22.04
 
     steps:
       - name: Checkout
@@ -33,17 +33,16 @@ jobs:
 
       - name: Install Bundler
         run: |
-          gem install bundler --user-install  # Bundler를 사용자 권한으로 설치
-          echo "export PATH=\"$HOME/.gem/ruby/3.2.0/bin:$PATH\"" >> ~/.bashrc  # .bashrc에 경로 추가
-          source ~/.bashrc  # 변경 사항 적용
-          echo "Bundler 설치 후 PATH: $PATH"  # Bundler 경로 확인
-          which bundle  # bundle 명령어 확인
+          sudo gem install bundler  # Bundler를 시스템 전체에 설치
+          echo "export PATH=\"$HOME/.gem/ruby/3.2.0/bin:$PATH\"" >> ~/.bashrc
+          source ~/.bashrc
+          which bundle
 
       - name: Install dependencies
         run: |
-          export PATH="$HOME/.gem/ruby/3.2.0/bin:$PATH"  # Bundler 경로 추가
-          cd $GITHUB_WORKSPACE  # 프로젝트 루트 디렉토리로 이동
-          bundle install  # 의존성 설치
+          export PATH="$HOME/.gem/ruby/3.2.0/bin:$PATH"
+          cd $GITHUB_WORKSPACE
+          bundle install
 
       - name: Setup Pages
         id: pages
@@ -51,7 +50,7 @@ jobs:
 
       - name: Build with Jekyll
         run: |
-          cd $GITHUB_WORKSPACE  # 다시 루트 디렉토리로 이동
+          cd $GITHUB_WORKSPACE
           bundle exec jekyll build --destination ./_site --baseurl "${{ steps.pages.outputs.base_path }}"
         env:
           JEKYLL_ENV: production
@@ -63,7 +62,7 @@ jobs:
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
-    runs-on: ubuntu-22.04 # Ubuntu 22.04 사용
+    runs-on: ubuntu-22.04
     needs: build
     steps:
       - name: Deploy to GitHub Pages
