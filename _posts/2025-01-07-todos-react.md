@@ -714,7 +714,7 @@ const filteredTodos = todos.filter(todo => {
 
 
  4. 완료된 할 일 삭제
-   - clear-completed-btn 버튼 클릭 시 완료된 할 일을 모두 삭제하는 기능입니다
+   - clear-completed-btn 버튼 클릭 시 완료된 할 일을 모두 삭제하는 기능입니다.
 
 ```jsx
 // 완료된 할 일 삭제
