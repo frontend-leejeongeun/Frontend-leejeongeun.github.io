@@ -43,6 +43,10 @@ jobs:
 
       - name: Install dependencies
         run: |
+          # 새로운 세션에서 Ruby 경로가 반영되었는지 확인
+          echo "Verifying Ruby Version..."
+          ruby -v  # Ruby 버전 확인
+
           cd ${{ github.workspace }}  # GitHub Workspace로 이동
           bundle install  # 의존성 설치
 
