@@ -11,4 +11,5 @@ platforms :mingw, :x64_mingw, :mswin, :jruby do
   gem "tzinfo-data"
 end
 
-gem "wdm", "~> 0.2.0", :platforms => [:mingw, :x64_mingw, :mswin]
+# WDM 설치 관련 수정 (Windows에서만)
+gem "wdm", "~> 0.2.0", platforms: [:mingw, :x64_mingw, :mswin] if RUBY_PLATFORM =~ /mingw|mswin/

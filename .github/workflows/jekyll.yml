@@ -24,7 +24,7 @@ jobs:
       - name: Set up Ruby using ruby-build
         run: |
           sudo apt-get update
-          sudo apt-get install -y git curl
+          sudo apt-get install -y git curl libssl-dev libreadline-dev zlib1g-dev
           git clone https://github.com/rbenv/ruby-build.git ~/.ruby-build
           export PATH="$HOME/.ruby-build/bin:$PATH"
           ruby-build 3.2.0 /opt/hostedtoolcache/Ruby/3.2.0/x64
@@ -51,7 +51,7 @@ jobs:
       - name: Build with Jekyll
         run: |
           cd $GITHUB_WORKSPACE  # 다시 루트 디렉토리로 이동
-          bundle exec jekyll build --baseurl "${{ steps.pages.outputs.base_path }}"
+          bundle exec jekyll build --destination ./_site --baseurl "${{ steps.pages.outputs.base_path }}"
         env:
           JEKYLL_ENV: production
 
