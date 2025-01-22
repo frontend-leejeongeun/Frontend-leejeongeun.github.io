@@ -24,19 +24,21 @@ jobs:
 
       - name: Install Ruby 3.1.0
         run: |
+          # 기존 Ruby 3.0.x 경로 삭제
+          $env:Path = $env:Path -replace "C:\\Ruby30-x64\\bin;", ""
+
           # Ruby 3.1.0을 수동으로 설치
           Invoke-WebRequest -Uri "https://github.com/oneclick/rubyinstaller2/releases/download/RubyInstaller-3.1.0-1/rubyinstaller-3.1.0-1-x64.exe" -OutFile "rubyinstaller-3.1.0-1-x64.exe"
           Start-Process -Wait -FilePath "rubyinstaller-3.1.0-1-x64.exe" -ArgumentList "/silent"
 
-          # Ruby 경로를 환경 변수에 추가
+          # Ruby 3.1 경로를 환경 변수에 추가
           $env:Path += ";C:\Ruby31-x64\bin"
 
-          # 세션을 새로 시작하여 경로가 반영되도록 강제
+          # 새 세션을 시작하여 경로가 반영되도록 강제
           RefreshEnv.cmd
 
-          # Ruby 경로 확인
-          echo "Current Ruby path: $env:Path"
-          ruby -v  # Ruby 버전 확인
+          # Ruby 버전 확인
+          ruby -v  # Ruby 3.1.0이 제대로 설치되었는지 확인
 
           # Bundler 설치
           gem install bundler
