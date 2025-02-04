@@ -1,0 +1,32 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main # main 브랜치에 푸시될 때 자동으로 배포
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest # 배포할 환경 (우분투 최신 버전)
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3 # 저장소 코드 체크아웃
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3 # Node.js 설치
+        with:
+          node-version: "16" # 사용할 Node.js 버전
+
+      - name: Install dependencies
+        run: npm install # 의존성 설치
+
+      - name: Build project
+        run: npm run build # 빌드 실행 (npm run build)
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3 # GitHub Pages에 배포
+        with:
+          deploy_key: ${{ secrets.DEPLOY_KEY }} # 배포에 사용할 GitHub Deploy Key
+          branch: gh-pages # 배포할 브랜치
+          folder: out # 배포할 정적 파일이 있는 폴더 (out 디렉토리)
