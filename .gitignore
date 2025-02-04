@@ -39,3 +39,6 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# SSH Private Key (Add this line to ignore the private key file)
+gh-pages-deploy-key
