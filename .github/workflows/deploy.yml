@@ -29,7 +29,6 @@ jobs:
       - name: Build and Deploy
         run: |
           npm run build
-          npm run export
           npm install gh-pages --save-dev
           npm run deploy
         env:

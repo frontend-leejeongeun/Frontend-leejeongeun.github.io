@@ -21,7 +21,7 @@ export default function Home() {
             .
           </li>
           <li>Save and see your changes instantly.</li>
-          <li>이정은 포트폴리오 페이지</li>
+          <li>이정은 룰루루</li>
         </ol>
 
         <div className="flex gap-4 items-center flex-col sm:flex-row">
