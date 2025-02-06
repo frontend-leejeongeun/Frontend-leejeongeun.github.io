@@ -39,3 +39,9 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# add the following files to ignore
+# Next.js configuration and package files
+next.config.ts
+package-lock.json
+package.json
